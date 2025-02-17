@@ -20,6 +20,9 @@ router.get("/api/animals", animalActions.browse);
 // Je veux une route qui me permet d'avoir un animal selon son id
 router.get("/api/animals/:id", animalActions.read);
 
+// Je veux une route qui me permet d'ajouter un animal
+router.post("/api/animals", animalActions.add);
+
 // Importer le fichier actions qui concerne les refuges
 import shelterActions from "./modules/shelter/shelterActions";
 
