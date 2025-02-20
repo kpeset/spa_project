@@ -19,7 +19,10 @@ type Animal = {
 class AnimalRepository {
   // Avoir tous les animaux
   async readAll() {
-    const [rows] = await databaseClient.query<Rows>("SELECT * FROM animal");
+    const [rows] = await databaseClient.query<Rows>(`SELECT animal.id, animal.name, breed.name as breed, species.name as species, shelter.name as shelter, shelter.address FROM animal
+JOIN shelter ON animal.shelter_id = shelter.id
+JOIN breed ON animal.breed_id = breed.id
+JOIN species ON species.id = animal.species_id`);
     console.info(rows);
     return rows;
   }
