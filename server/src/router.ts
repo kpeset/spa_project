@@ -6,6 +6,9 @@ const router = express.Router();
 // Define Your API Routes Here
 /* ************************************************************************* */
 
+// Import des middlewares
+import auth from "./middlewares/auth";
+
 // Define item-related routes
 import itemActions from "./modules/item/itemActions";
 
@@ -15,7 +18,7 @@ router.post("/api/items", itemActions.add);
 
 import animalActions from "./modules/animal/animalActions";
 
-router.get("/api/animals", animalActions.browse);
+router.get("/api/animals", auth.checkIfAdmin, animalActions.browse);
 
 // Je veux une route qui me permet d'avoir un animal selon son id
 router.get("/api/animals/:id", animalActions.read);
@@ -31,7 +34,7 @@ router.get("/api/shelters", shelterActions.browse);
 router.get("/api/shelters/:id", shelterActions.read);
 
 // Je veux créer une route qui me permet de créer un nouveau refuge
-router.post("/api/shelters", shelterActions.add);
+router.post("/api/shelters", auth.checkIfAdmin, shelterActions.add);
 
 /* ************************************************************************* */
 
