@@ -8,6 +8,7 @@ const router = express.Router();
 
 // Import des middlewares
 import auth from "./middlewares/auth";
+import form from "./middlewares/form";
 
 // Define item-related routes
 import itemActions from "./modules/item/itemActions";
@@ -24,7 +25,7 @@ router.get("/api/animals", auth.checkIfAdmin, animalActions.browse);
 router.get("/api/animals/:id", animalActions.read);
 
 // Je veux une route qui me permet d'ajouter un animal
-router.post("/api/animals", animalActions.add);
+router.post("/api/animals", form.validate, animalActions.add);
 
 // Importer le fichier actions qui concerne les refuges
 import shelterActions from "./modules/shelter/shelterActions";
