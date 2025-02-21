@@ -5,7 +5,7 @@ const checkIfAdmin: RequestHandler = async (req, res, next) => {
     req.auth = {
       name: "windy",
       // changez la valeur du boolean pour voir ce qu'il se passe
-      isAdmin: false,
+      isAdmin: true,
     };
 
     if (req.auth.isAdmin === true) {

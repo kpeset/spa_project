@@ -7,10 +7,10 @@ type Animal = {
   name: string;
   tattooed: number;
   vaccinated: number;
-  species: string;
+  species_id: string;
   gender: string;
   age: string;
-  breed: string;
+  breed_id: string;
   description: string;
   photo: string;
   shelter_id: number;
@@ -39,16 +39,16 @@ JOIN species ON species.id = animal.species_id`);
 
   async create(animal: Animal) {
     const [result] = await databaseClient.query<Result>(
-      `INSERT INTO animal (name, tattooed, vaccinated, species, gender, age, breed, description, photo, shelter_id) VALUES
+      `INSERT INTO animal (name, tattooed, vaccinated, species_id, gender, age, breed_id, description, photo, shelter_id) VALUES
   (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         animal.name,
         animal.tattooed,
         animal.vaccinated,
-        animal.species,
+        animal.species_id,
         animal.gender,
         animal.age,
-        animal.breed,
+        animal.breed_id,
         animal.description,
         animal.photo,
         animal.shelter_id,
