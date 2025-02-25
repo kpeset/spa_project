@@ -27,6 +27,9 @@ router.get("/api/animals/:id", animalActions.read);
 // Je veux une route qui me permet d'ajouter un animal
 router.post("/api/animals", form.validate, animalActions.add);
 
+// Une route qui me permet d'avoir les animaux qui sont dans un certain refuge
+router.get("/api/shelters/:id/animals", animalActions.readByShelter);
+
 // Importer le fichier actions qui concerne les refuges
 import shelterActions from "./modules/shelter/shelterActions";
 
@@ -36,6 +39,11 @@ router.get("/api/shelters/:id", shelterActions.read);
 
 // Je veux créer une route qui me permet de créer un nouveau refuge
 router.post("/api/shelters", auth.checkIfAdmin, shelterActions.add);
+
+import specieActions from "./modules/specie/specieActions";
+
+// Je veux une route qui me permet d'avoir la liste des espèces
+router.get("/api/species", specieActions.browse);
 
 /* ************************************************************************* */
 

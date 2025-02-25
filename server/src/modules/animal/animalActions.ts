@@ -52,4 +52,15 @@ const add: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, add };
+const readByShelter: RequestHandler = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const animals = await animalRepository.readAnimalByShelter(Number(id));
+
+    res.json(animals);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { browse, read, add, readByShelter };

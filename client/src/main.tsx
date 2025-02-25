@@ -9,8 +9,13 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Home from "./pages/Home";
 import Dashboard from "./pages/dashboard/Dashboard";
+import ShelterDetails from "./pages/dashboard/ShelterDetails";
 
-import { getAllShelters } from "./services/requests";
+import {
+  getAllAnimalsByShelter,
+  getAllShelters,
+  getSpecies,
+} from "./services/requests";
 
 import "./styles/app.css";
 import "./styles/dashboard.css";
@@ -38,6 +43,14 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <Dashboard />,
         loader: getAllShelters,
+      },
+      {
+        path: "/shelters/:id",
+        element: <ShelterDetails />,
+        loader: async ({ params }) => ({
+          animals: await getAllAnimalsByShelter(String(params.id)),
+          species: await getSpecies(),
+        }),
       },
     ],
   },

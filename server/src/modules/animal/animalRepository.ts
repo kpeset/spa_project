@@ -27,6 +27,18 @@ JOIN species ON species.id = animal.species_id`);
     return rows;
   }
 
+  async readAnimalByShelter(id: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      `SELECT animal.id, animal.name, breed.name as breed, species.name as species, shelter.name as shelter, shelter.address FROM animal
+JOIN shelter ON animal.shelter_id = shelter.id
+JOIN breed ON animal.breed_id = breed.id
+JOIN species ON species.id = animal.species_id WHERE animal.shelter_id = ?`,
+      [id],
+    );
+    console.info(rows);
+    return rows;
+  }
+
   // Avoir un animal selon son id
   async read(id: number) {
     const [rows] = await databaseClient.query<Rows>(

@@ -6,4 +6,16 @@ const getAllShelters = () => {
     .then((response) => response.data);
 };
 
-export { getAllShelters };
+const getAllAnimalsByShelter = (id: string) => {
+  return axios
+    .get(`http://localhost:3310/api/shelters/${id}/animals`)
+    .then((response) => response.data);
+};
+
+const getSpecies = () => {
+  return axios
+    .get("http://localhost:3310/api/species")
+    .then((response) => response.data);
+};
+
+export { getAllShelters, getAllAnimalsByShelter, getSpecies };
