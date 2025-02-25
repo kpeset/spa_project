@@ -1,0 +1,16 @@
+header {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  background-color: aliceblue;
+  padding: 2rem;
+}
+
+header > nav > ul {
+  display: flex;
+  gap: 1rem;
+}
+
+header > nav > ul > li {
+  list-style: none;
+}
