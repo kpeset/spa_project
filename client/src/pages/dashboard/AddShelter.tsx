@@ -17,8 +17,7 @@ export default function AddShelter() {
         address: address,
         capacity: capacity,
       })
-      .then((response) => {
-        console.info(response);
+      .then(() => {
         revalidate();
       })
       .catch((error) => console.error(error));

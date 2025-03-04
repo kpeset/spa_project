@@ -23,7 +23,6 @@ class AnimalRepository {
 JOIN shelter ON animal.shelter_id = shelter.id
 JOIN breed ON animal.breed_id = breed.id
 JOIN species ON species.id = animal.species_id`);
-    console.info(rows);
     return rows;
   }
 
@@ -35,7 +34,6 @@ JOIN breed ON animal.breed_id = breed.id
 JOIN species ON species.id = animal.species_id WHERE animal.shelter_id = ?`,
       [id],
     );
-    console.info(rows);
     return rows;
   }
 
@@ -45,7 +43,6 @@ JOIN species ON species.id = animal.species_id WHERE animal.shelter_id = ?`,
       "SELECT * FROM animal WHERE id = ?",
       [id],
     );
-    console.info(rows[0]);
     return rows[0];
   }
 

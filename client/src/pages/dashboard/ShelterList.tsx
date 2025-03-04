@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 export default function ShelterList() {
   const shelters = useLoaderData() as Shelter[];
 
-  console.info(shelters);
-
   return (
     <>
       <h2>Les refuges</h2>
