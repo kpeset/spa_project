@@ -1,4 +1,14 @@
+import argon2 from "argon2";
 import type { RequestHandler } from "express";
+
+import memberRepository from "../modules/member/memberRepository";
+
+const hashingOptions = {
+  type: argon2.argon2id,
+  memoryCost: 19 * 2 ** 10,
+  timeCost: 2,
+  parallelism: 1,
+};
 
 const checkIfAdmin: RequestHandler = async (req, res, next) => {
   try {
@@ -18,4 +28,39 @@ const checkIfAdmin: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { checkIfAdmin };
+const hashPassword: RequestHandler = async (req, res, next) => {
+  try {
+    const { password } = req.body;
+    const hashedPassword = await argon2.hash(password, hashingOptions);
+    req.body.hashed_password = hashedPassword;
+    req.body.password = undefined;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+const login: RequestHandler = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    const member = await memberRepository.readByEmailWithPassword(email);
+
+    if (!member) {
+      res.sendStatus(422);
+    }
+
+    const verified = await argon2.verify(member.hashed_password, password);
+
+    if (!verified) {
+      res.sendStatus(422);
+    } else {
+      // On va faire ? JWT ? Cookie ? Les deux à la fois ?
+      res.send("Utilisateur connecté");
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { checkIfAdmin, hashPassword, login };

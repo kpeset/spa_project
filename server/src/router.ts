@@ -45,6 +45,15 @@ import specieActions from "./modules/specie/specieActions";
 // Je veux une route qui me permet d'avoir la liste des espèces
 router.get("/api/species", specieActions.browse);
 
+// Création des routes gestion des membres
+
+import memberActions from "./modules/member/memberActions";
+
+router.get("/api/members", memberActions.browse);
+router.post("/api/members", auth.hashPassword, memberActions.add);
+
+router.post("/api/login", auth.login);
+
 /* ************************************************************************* */
 
 export default router;
