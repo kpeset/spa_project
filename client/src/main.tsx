@@ -8,6 +8,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // Import the main app component
 import App from "./App";
 import Home from "./pages/Home";
+import Auth from "./pages/auth/Auth";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ShelterDetails from "./pages/dashboard/ShelterDetails";
 
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
           animals: await getAllAnimalsByShelter(String(params.id)),
           species: await getSpecies(),
         }),
+      },
+      {
+        path: "/auth",
+        element: <Auth />,
       },
     ],
   },

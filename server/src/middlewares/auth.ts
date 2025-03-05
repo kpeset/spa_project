@@ -1,4 +1,6 @@
 import argon2 from "argon2";
+import jwt from "jsonwebtoken";
+
 import type { RequestHandler } from "express";
 
 import memberRepository from "../modules/member/memberRepository";
@@ -55,8 +57,23 @@ const login: RequestHandler = async (req, res, next) => {
     if (!verified) {
       res.sendStatus(422);
     } else {
-      // On va faire ? JWT ? Cookie ? Les deux à la fois ?
-      res.send("Utilisateur connecté");
+      const payload = {
+        id: member.id,
+        email: member.email,
+        role: "admin",
+      };
+
+      if (!process.env.APP_SECRET) {
+        throw new Error(
+          "Vous n'avez pas configuré votre APP SECRET dans le .env",
+        );
+      }
+
+      const token = await jwt.sign(payload, process.env.APP_SECRET, {
+        expiresIn: "1y",
+      });
+
+      res.cookie("auth", token).send("Utilisateur connecté");
     }
   } catch (error) {
     next(error);

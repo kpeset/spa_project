@@ -11,6 +11,9 @@ export default function Header() {
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>
+          <li>
+            <Link to="/auth">Se connecter</Link>
+          </li>
         </ul>
       </nav>
     </header>
