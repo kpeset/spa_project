@@ -19,13 +19,19 @@ router.post("/api/items", itemActions.add);
 
 import animalActions from "./modules/animal/animalActions";
 
-router.get("/api/animals", auth.checkIfAdmin, animalActions.browse);
+router.get("/api/animals", animalActions.browse);
 
 // Je veux une route qui me permet d'avoir un animal selon son id
 router.get("/api/animals/:id", animalActions.read);
 
 // Je veux une route qui me permet d'ajouter un animal
-router.post("/api/animals", form.validate, animalActions.add);
+router.post(
+  "/api/animals",
+  form.validate,
+  auth.verify,
+  auth.checkIfAdmin,
+  animalActions.add,
+);
 
 // Une route qui me permet d'avoir les animaux qui sont dans un certain refuge
 router.get("/api/shelters/:id/animals", animalActions.readByShelter);
@@ -38,7 +44,7 @@ router.get("/api/shelters", shelterActions.browse);
 router.get("/api/shelters/:id", shelterActions.read);
 
 // Je veux créer une route qui me permet de créer un nouveau refuge
-router.post("/api/shelters", auth.checkIfAdmin, shelterActions.add);
+router.post("/api/shelters", shelterActions.add);
 
 import specieActions from "./modules/specie/specieActions";
 
@@ -49,7 +55,12 @@ router.get("/api/species", specieActions.browse);
 
 import memberActions from "./modules/member/memberActions";
 
-router.get("/api/members", memberActions.browse);
+router.get(
+  "/api/members",
+  auth.verify,
+  auth.checkIfAdmin,
+  memberActions.browse,
+);
 router.post("/api/members", auth.hashPassword, memberActions.add);
 
 router.post("/api/login", auth.login);

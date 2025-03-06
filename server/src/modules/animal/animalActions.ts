@@ -44,7 +44,9 @@ const read: RequestHandler = async (req, res, next) => {
 const add: RequestHandler = async (req, res, next) => {
   try {
     const animal = req.body;
-    const insertId = await animalRepository.create(animal);
+    req.body.shelter_id = req.member.id;
+
+    await animalRepository.create(animal);
     res.sendStatus(200);
   } catch (error) {
     next(error);

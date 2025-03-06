@@ -11,10 +11,13 @@ import Home from "./pages/Home";
 import Auth from "./pages/auth/Auth";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ShelterDetails from "./pages/dashboard/ShelterDetails";
+import Forbiden from "./pages/members/Forbiden";
+import Members from "./pages/members/Members";
 
 import {
   getAllAnimalsByShelter,
   getAllShelters,
+  getMembers,
   getSpecies,
 } from "./services/requests";
 
@@ -56,6 +59,12 @@ const router = createBrowserRouter([
       {
         path: "/auth",
         element: <Auth />,
+      },
+      {
+        path: "/members",
+        element: <Members />,
+        loader: getMembers,
+        errorElement: <Forbiden />,
       },
     ],
   },

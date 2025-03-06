@@ -8,6 +8,10 @@ declare global {
         name: string;
         isAdmin: boolean;
       };
+      member: {
+        role: string;
+        id: number;
+      };
       /* ************************************************************************* */
       // Add your custom properties here, for example:
       //

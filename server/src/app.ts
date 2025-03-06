@@ -6,6 +6,10 @@ const app = express();
 
 // Configure it
 
+import cookieParser from "cookie-parser";
+
+app.use(cookieParser());
+
 /* ************************************************************************* */
 
 // CORS Handling: Why is the current code present and do I need to define specific allowed origins for my project?

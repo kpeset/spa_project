@@ -10,7 +10,6 @@ const animalSchema = Joi.object({
   }),
   breed_id: Joi.number().required(),
   species_id: Joi.number().required(),
-  shelter_id: Joi.number().required(),
   tattooed: Joi.boolean().required(),
   vaccinated: Joi.boolean().required(),
   gender: Joi.string().valid("male", "female").required(),

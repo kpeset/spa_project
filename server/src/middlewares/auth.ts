@@ -12,24 +12,6 @@ const hashingOptions = {
   parallelism: 1,
 };
 
-const checkIfAdmin: RequestHandler = async (req, res, next) => {
-  try {
-    req.auth = {
-      name: "windy",
-      // changez la valeur du boolean pour voir ce qu'il se passe
-      isAdmin: true,
-    };
-
-    if (req.auth.isAdmin === true) {
-      next();
-    } else {
-      res.status(401).send("Pas autorisé");
-    }
-  } catch (error) {
-    next(error);
-  }
-};
-
 const hashPassword: RequestHandler = async (req, res, next) => {
   try {
     const { password } = req.body;
@@ -80,4 +62,49 @@ const login: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { checkIfAdmin, hashPassword, login };
+const verify: RequestHandler = async (req, res, next) => {
+  if (!process.env.APP_SECRET) {
+    throw new Error("Vous n'avez pas configuré votre APP SECRET dans le .env");
+  }
+
+  try {
+    // Récupérer le token qui est à l'intérieur du cookie
+    const { auth } = req.cookies;
+
+    // Si il y a pas le cookie on déclenche une erreur
+    if (!auth) {
+      res.sendStatus(403);
+    }
+
+    // Vérifier le token JWT qu'il y a à l'intérieur
+    const resultPayload = await jwt.verify(auth, process.env.APP_SECRET);
+
+    if (typeof resultPayload !== "object") {
+      throw new Error("Token invalid");
+    }
+
+    req.member = {
+      role: resultPayload.role,
+      id: resultPayload.id,
+    };
+
+    // Si tout se passe bien => next()
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+const checkIfAdmin: RequestHandler = async (req, res, next) => {
+  try {
+    if (req.member.role === "admin") {
+      next();
+    } else {
+      res.sendStatus(403);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { checkIfAdmin, hashPassword, login, verify };

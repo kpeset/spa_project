@@ -14,6 +14,9 @@ export default function Header() {
           <li>
             <Link to="/auth">Se connecter</Link>
           </li>
+          <li>
+            <Link to="/members">Liste des membres</Link>
+          </li>
         </ul>
       </nav>
     </header>
