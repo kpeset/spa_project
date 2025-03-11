@@ -49,11 +49,16 @@ const read: RequestHandler = async (req, res, next) => {
 };
 
 const add: RequestHandler = async (req, res, next) => {
+  const { name, address, capacity } = req.body;
+  console.info(req.body);
+  if (!name || !address || !capacity) {
+    res.sendStatus(400);
+  }
   try {
     const insertId = await shelterRepository.create(req.body);
 
     if (insertId) {
-      res.sendStatus(200);
+      res.status(201).json({ insertId });
     }
   } catch (error) {
     next(error);
