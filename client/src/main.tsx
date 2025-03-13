@@ -5,6 +5,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 /* ************************************************************************* */
 
+// Import le context provider
+import { AuthProvider } from "./services/AuthContext";
+
 // Import the main app component
 import App from "./App";
 import Home from "./pages/Home";
@@ -82,7 +85,9 @@ if (rootElement == null) {
 // Render the app inside the root element
 createRoot(rootElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 );
 

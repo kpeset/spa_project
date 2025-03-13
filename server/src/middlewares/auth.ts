@@ -55,7 +55,11 @@ const login: RequestHandler = async (req, res, next) => {
         expiresIn: "1y",
       });
 
-      res.cookie("auth", token).send("Utilisateur connecté");
+      res.cookie("auth", token).json({
+        message: "Connexion réussie",
+        role: payload.role,
+        email: payload.email,
+      });
     }
   } catch (error) {
     next(error);

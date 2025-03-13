@@ -1,11 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
 
+import { useAuth } from "../../services/AuthContext";
+
 export default function Auth() {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
+
+  const { setRole } = useAuth();
 
   const handleChangeCredentials = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({
@@ -20,7 +24,11 @@ export default function Auth() {
       .post("http://localhost:3310/api/login", credentials, {
         withCredentials: true,
       })
-      .then((response) => console.info(response))
+      .then((response) => {
+        // changer l'état de role
+        setRole(response.data.role);
+        console.info(response);
+      })
       .catch((error) => console.error(error));
   };
 
