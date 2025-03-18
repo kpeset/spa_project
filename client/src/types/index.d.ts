@@ -17,6 +17,10 @@ interface Species {
   species: Specie[];
 }
 
+interface Shelters {
+  shelters: Shelter[];
+}
+
 interface AniMalSpecies {
   animals: Animal[];
   species: Specie[];

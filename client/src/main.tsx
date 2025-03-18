@@ -20,6 +20,7 @@ import Members from "./pages/members/Members";
 import {
   getAllAnimalsByShelter,
   getAllShelters,
+  getAuthorization,
   getMembers,
   getSpecies,
 } from "./services/requests";
@@ -45,11 +46,17 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: getAuthorization,
+        errorElement: <Forbiden />,
       },
       {
         path: "/dashboard",
         element: <Dashboard />,
-        loader: getAllShelters,
+        loader: async () => ({
+          authorization: await getAuthorization(),
+          shelters: await getAllShelters(),
+        }),
+        errorElement: <Forbiden />,
       },
       {
         path: "/shelters/:id",

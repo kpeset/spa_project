@@ -65,6 +65,13 @@ router.post("/api/members", auth.hashPassword, memberActions.add);
 
 router.post("/api/login", auth.login);
 
+router.get(
+  "/api/checkAdmin",
+  auth.verify,
+  auth.checkIfAdmin,
+  memberActions.sendSuccessStatus,
+);
+
 /* ************************************************************************* */
 
 export default router;

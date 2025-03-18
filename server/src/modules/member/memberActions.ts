@@ -24,4 +24,12 @@ const add: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, add };
+const sendSuccessStatus: RequestHandler = async (req, res, next) => {
+  try {
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { browse, add, sendSuccessStatus };

@@ -25,4 +25,21 @@ const getMembers = () => {
     .catch((error) => console.error(error));
 };
 
-export { getAllShelters, getAllAnimalsByShelter, getSpecies, getMembers };
+const getAuthorization = () => {
+  return axios
+    .get("http://localhost:3310/api/checkAdmin", {
+      withCredentials: true,
+    })
+    .then((response) => response)
+    .catch((error) => {
+      throw new Error(error);
+    });
+};
+
+export {
+  getAllShelters,
+  getAllAnimalsByShelter,
+  getSpecies,
+  getMembers,
+  getAuthorization,
+};
