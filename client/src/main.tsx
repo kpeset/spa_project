@@ -46,8 +46,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: getAuthorization,
-        errorElement: <Forbiden />,
       },
       {
         path: "/dashboard",
