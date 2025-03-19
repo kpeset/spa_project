@@ -9,6 +9,7 @@ const router = express.Router();
 // Import des middlewares
 import auth from "./middlewares/auth";
 import form from "./middlewares/form";
+import upload from "./middlewares/upload";
 
 // Define item-related routes
 import itemActions from "./modules/item/itemActions";
@@ -44,7 +45,7 @@ router.get("/api/shelters", shelterActions.browse);
 router.get("/api/shelters/:id", shelterActions.read);
 
 // Je veux créer une route qui me permet de créer un nouveau refuge
-router.post("/api/shelters", shelterActions.add);
+router.post("/api/shelters", upload.uploadFile, shelterActions.add);
 
 import specieActions from "./modules/specie/specieActions";
 

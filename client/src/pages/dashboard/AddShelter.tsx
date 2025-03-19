@@ -6,17 +6,21 @@ export default function AddShelter() {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [capacity, setCapacity] = useState(undefined as undefined | number);
+  const [picture, setPicture] = useState(undefined as undefined | File);
 
   const { revalidate } = useRevalidator();
+
+  const formData = new FormData();
+
+  formData.append("name", name);
+  formData.append("capacity", String(capacity));
+  formData.append("address", address);
+  formData.append("picture", String(picture));
 
   const sendForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3310/api/shelters/", {
-        name: name,
-        address: address,
-        capacity: capacity,
-      })
+      .post("http://localhost:3310/api/shelters/", formData)
       .then(() => {
         revalidate();
       })
@@ -35,6 +39,12 @@ export default function AddShelter() {
     setCapacity(Number(e.currentTarget.value));
   };
 
+  const handleChangePicture = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.currentTarget.files?.[0]) {
+      setPicture(e.currentTarget.files[0]);
+    }
+  };
+
   return (
     <>
       <h2>Ajouter un refuge</h2>
@@ -45,6 +55,8 @@ export default function AddShelter() {
         <input type="text" onChange={handleChangeAddress} />
         <p>Capacité</p>
         <input type="text" onChange={handleChangeCapacity} />
+        <p>Photo</p>
+        <input type="file" onChange={handleChangePicture} />
         <input type="submit" />
       </form>
     </>

@@ -7,6 +7,7 @@ type Shelter = {
   name: string;
   address: string;
   capacity: number;
+  picture: string;
 };
 
 class ShelterRepository {
@@ -15,8 +16,8 @@ class ShelterRepository {
   async create(shelter: Shelter) {
     // do something
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO shelter (name, address, capacity) VALUES (?, ?, ?)",
-      [shelter.name, shelter.address, shelter.capacity],
+      "INSERT INTO shelter (name, address, capacity, picture) VALUES (?, ?, ?, ?)",
+      [shelter.name, shelter.address, shelter.capacity, shelter.picture],
     );
 
     return result.insertId;

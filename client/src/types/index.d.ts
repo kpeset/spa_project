@@ -1,6 +1,7 @@
 interface Shelter {
   id: number;
   name: string;
+  picture: string;
 }
 
 interface Animal {

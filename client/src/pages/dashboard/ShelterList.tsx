@@ -11,6 +11,10 @@ export default function ShelterList() {
       <ul>
         {shelters.map((shelter) => (
           <li key={shelter.id}>
+            <img
+              src={`http://localhost:3310/uploads/${shelter.picture}`}
+              alt=""
+            />
             <Link to={`/shelters/${shelter.id}`}>{shelter.name}</Link>
           </li>
         ))}

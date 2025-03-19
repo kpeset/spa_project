@@ -40,7 +40,8 @@ CREATE TABLE shelter (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   name VARCHAR(255) NOT NULL,
   address VARCHAR(255) NOT NULL,
-  capacity INT NOT NULL
+  capacity INT NOT NULL,
+  picture VARCHAR(255) DEFAULT "default.png"
 );
 
 INSERT INTO shelter (name, address, capacity) VALUES
