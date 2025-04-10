@@ -1,9 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import type { ReactNode } from "react";
-
-interface AuthProviderProps {
-  children: ReactNode;
-}
+import type { PropsWithChildren } from "react";
 
 interface AuthProps {
   role: string;
@@ -12,7 +8,7 @@ interface AuthProps {
 
 const authContext = createContext<AuthProps | null>(null);
 
-export function AuthProvider({ children }: AuthProviderProps) {
+export function AuthProvider({ children }: PropsWithChildren) {
   const [role, setRole] = useState(localStorage.getItem("role") || "anonymous");
 
   useEffect(() => {

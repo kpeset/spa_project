@@ -56,12 +56,7 @@ router.get("/api/species", specieActions.browse);
 
 import memberActions from "./modules/member/memberActions";
 
-router.get(
-  "/api/members",
-  auth.verify,
-  auth.checkIfAdmin,
-  memberActions.browse,
-);
+router.get("/api/members", memberActions.browse);
 router.post("/api/members", auth.hashPassword, memberActions.add);
 
 router.post("/api/login", auth.login);
@@ -72,6 +67,8 @@ router.get(
   auth.checkIfAdmin,
   memberActions.sendSuccessStatus,
 );
+
+router.get("/api/confirm", memberActions.confirmUser);
 
 /* ************************************************************************* */
 

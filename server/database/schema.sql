@@ -1,7 +1,9 @@
 CREATE TABLE member (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 email VARCHAR(255) UNIQUE NOT NULL,
-hashed_password VARCHAR(255) NOT NULL
+hashed_password VARCHAR(255) NOT NULL,
+is_confirmed BOOLEAN default FALSE,
+token VARCHAR(255)
 );
 
 INSERT INTO member (email, hashed_password) VALUES ("wild@gmail.com", "$argon2id$v=19$m=19456,t=2,p=1$K+hNNNIlN4Q+PpSnTdCcdQ$EV7YNhB1RIYHXnsIalyCq2tswiow93jFx8eBQ9gAvyE");
